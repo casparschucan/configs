@@ -16,6 +16,7 @@ vim.opt.cursorline = true
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.ttyfast = true
 vim.opt.updatetime = 300
+vim.g.mapleader = ','
 
 vim.opt.signcolumn= 'yes'
 
@@ -109,6 +110,16 @@ cmp.setup({
     { name = 'buffer' },
   })
 })
+
+vim.keymap.set('n', '<leader>rn', ':lua vim.lsp.buf.rename()<CR>')
+vim.keymap.set('n', '<leader>ca', ':lua vim.lsp.buf.code_action()<CR>')
+vim.keymap.set('n', '<leader>gd', ':lua vim.lsp.buf.definition()<CR>')
+vim.keymap.set('n', '<leader>gr', ':lua vim.lsp.buf.references()<CR>')
+vim.keymap.set('n', '<leader>gi', ':lua vim.lsp.buf.implementation()<CR>')
+
+vim.keymap.set('n', '<leader>tt', ':NERDTreeToggle<CR>')
+vim.keymap.set('n', '<leader>tr', ':NERDTreeRefreshRoot<CR>')
+
 
 -- To use git you need to install the plugin petertriho/cmp-git and uncomment lines below
 -- Set configuration for specific filetype.

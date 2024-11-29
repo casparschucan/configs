@@ -1,0 +1,10 @@
+alias cm='git commit -m'
+alias ca='git commit --amend --no-edit'
+alias gs='git status'
+alias gp='git push'
+alias ga='git add'
+alias gpl='git pull'
+alias gco='git checkout'
+
+alias dominion='cd ~/Documents/ETH/Software_Engineering/dominion && nvim'
+alias octree='cd ~/Documents/ETH/DPHPC/ippl-fork && nvim'

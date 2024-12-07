@@ -1,3 +1,9 @@
+alias cp="cp -i"                          # confirm before overwriting something
+#alias df='df -h'                          # human-readable sizes
+alias free='free -m'                      # show sizes in MB
+#alias np='nano -w PKGBUILD'
+alias more=less
+
 alias cm='git commit -m'
 alias ca='git commit --amend --no-edit'
 alias gs='git status'
@@ -6,5 +12,4 @@ alias ga='git add'
 alias gpl='git pull'
 alias gco='git checkout'
 
-alias dominion='cd ~/Documents/ETH/Software_Engineering/dominion && nvim'
-alias octree='cd ~/Documents/ETH/DPHPC/ippl-fork && nvim'
+alias makefile-targets='grep "^[^#[:space:]].*:" Makefile'

@@ -207,11 +207,18 @@ bindsym $mod+r mode "resize"
   # Special key to take a screenshot with grim
   bindsym Print exec grimshot savecopy anything ~/Screenshots/$(date +%Y-%m-%d-%H-%M-%S).png
 
-# set keyboard layout to swiss  german
+# set keyboard layout to us
 input * {
-  xkb_layout ch
-  xkb_variant de
+  xkb_layout us,ch
+  xkb_variant ,de
 }
+
+input "1:1:AT_Translated_Set_2_keyboard" {
+  xkb_layout us,ch
+  xkb_variant ,de
+}
+
+bindsym $mod+Shift+s exec swaymsg input "1:1:AT_Translated_Set_2_keyboard" xkb_switch_layout next
 
 #configure 2 monitors on hprodesk 
 output DP-1 position 0 0 

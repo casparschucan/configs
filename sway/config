@@ -228,13 +228,10 @@ output DP-2 position 1920 0
 
 # swaybar config for i3status
 bar {
-  status_command i3status
+  status_command i3status-rs
   position top
   font pango:monospace 11
-  colors {
-    background #323232
-    statusline #ffffff
-  }
+
 }
 
 

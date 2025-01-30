@@ -1,6 +1,6 @@
 {
     "label" : "lock",
-    "action" : "grim ~/.local/share/Screenshots/screen.jpg && magick convert ~/.local/share/Screenshots/screen.jpg -blur 0x8 ~/.local/share/Screenshots/screen_blurred.jpg && swaylock",
+    "action" : "lock_blurred",
     "text" : "Lock",
     "keybind" : "l"
 }

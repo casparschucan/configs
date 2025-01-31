@@ -79,8 +79,12 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
     # Reload the configuration file
     bindsym $mod+Shift+c reload
 
-    # Exit sway (logs you out of your Wayland session)
+    # Exit menu
     bindsym $mod+Shift+e exec wlogout
+
+    # Lock the screen with swaylock
+    bindsym $mod+Shift+b exec lock_blurred   
+
 #
 # Moving around:
 #
@@ -206,8 +210,6 @@ bindsym $mod+r mode "resize"
   bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
   # Special key to take a screenshot with grim
   bindsym Print exec grim -g "$(slurp)" - | wl-copy
-
-  bindsym $mod+Shift+b exec swaylock
 
 # set keyboard layout to us
 input * {

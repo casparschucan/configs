@@ -1,3 +1,7 @@
 # set background image
 image=~/.local/share/Screenshots/screen_blurred.jpg
 scaling=fill
+indicator-caps-lock
+indicator-radius=100
+inside-color=00000033
+indicator-idle-visible

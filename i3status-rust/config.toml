@@ -10,11 +10,18 @@ idle_fg = "#abcdef"
 icons = "awesome4"
 [icons.overrides]
 
-
+[[block]]
+block = 'bluetooth'
+mac="This is supposed to be wrong"
+format = " $icon"
+[[block.click]]
+button = "left"
+cmd = "foot bluetuith"
 
 [[block]]
 block = "bluetooth"
 mac = "88:C9:E8:E8:5B:35"
+disconnected_format = ""
 format = " {$icon $name $percentage |bluetooth }"
 [[block.click]]
 button = "left"

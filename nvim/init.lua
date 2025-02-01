@@ -65,6 +65,9 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
 
+-- typst
+Plug 'chomosuke/typst-preview.nvim'
+
 vim.call('plug#end')
 
 vim.cmd [[
@@ -125,6 +128,8 @@ vim.keymap.set('n', '<leader>gi', ':lua vim.lsp.buf.implementation()<CR>')
 vim.keymap.set('n', '<leader>tt', ':NERDTreeToggle<CR>')
 vim.keymap.set('n', '<leader>tr', ':NERDTreeRefreshRoot<CR>')
 
+vim.keymap.set('n', '<leader>tp', ':TypstPreview<CR>')
+
 
 -- To use git you need to install the plugin petertriho/cmp-git and uncomment lines below
 -- Set configuration for specific filetype.
@@ -166,6 +171,11 @@ require('lspconfig')['clangd'].setup {
 require('lspconfig')['texlab'].setup {
   capabilities = capabilities
 }
+
+require('lspconfig')['tinymist'].setup {
+  capabilities = capabilities
+}
+
 -- telescope config
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
@@ -173,25 +183,53 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live gr
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
---require'lspconfig'.clangd.setup({})
---[[
--- Create an event handler for the FileType autocommand
-vim.api.nvim_create_autocmd('FileType', {
-  -- This handler will fire when the buffer's 'filetype' is cpp or c
-  pattern = 'cpp',
-  callback = function(ev)
-    vim.lsp.start({
-      name = 'clangd',
-      cmd = {'clangd'},
-      -- Set the "root directory" to the parent directory of the file in the
-      -- current buffer (`ev.buf`) that contains either a "setup.py" or a
-      -- "pyproject.toml" file. Files that share a root directory will reuse
-      -- the connection to the same LSP server.
-      root_dir = vim.fs.root(ev.buf, {'.git/'}),
-    })
+-- typst-preview config
+require('typst-preview').setup({
+  -- Setting this true will enable logging debug information to
+  -- `vim.fn.stdpath 'data' .. '/typst-preview/log.txt'`
+  debug = false,
+
+  -- Custom format string to open the output link provided with %s
+  -- Example: open_cmd = 'firefox %s -P typst-preview --class typst-preview'
+  open_cmd = nil,
+
+  -- Setting this to 'always' will invert black and white in the preview
+  -- Setting this to 'auto' will invert depending if the browser has enable
+  -- dark mode
+  -- Setting this to '{"rest": "<option>","image": "<option>"}' will apply
+  -- your choice of color inversion to images and everything else
+  -- separately.
+  invert_colors = 'never',
+
+  -- Whether the preview will follow the cursor in the source file
+  follow_cursor = true,
+
+  -- Provide the path to binaries for dependencies.
+  -- Setting this will skip the download of the binary by the plugin.
+  -- Warning: Be aware that your version might be older than the one
+  -- required.
+  dependencies_bin = {
+    ['tinymist'] = nil,
+    ['websocat'] = nil
+  },
+
+  -- A list of extra arguments (or nil) to be passed to previewer.
+  -- For example, extra_args = { "--input=ver=draft", "--ignore-system-fonts" }
+  extra_args = nil,
+
+  -- This function will be called to determine the root of the typst project
+  get_root = function(path_of_main_file)
+    local root = os.getenv 'TYPST_ROOT'
+    if root then
+      return root
+    end
+    return vim.fn.fnamemodify(path_of_main_file, ':p:h')
+  end,
+
+  -- This function will be called to determine the main file of the typst
+  -- project.
+  get_main_file = function(path_of_buffer)
+    return path_of_buffer
   end,
 })
-
---]]
-
 

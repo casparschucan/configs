@@ -24,13 +24,13 @@
 }
 {
     "label" : "suspend",
-    "action" : "lock_blurred & systemctl suspend",
+    "action" : "systemctl suspend",
     "text" : "Suspend (u)",
     "keybind" : "u"
 }
 {
     "label" : "hibernate",
-    "action" : "lock_blurred & systemctl hibernate",
+    "action" : "systemctl hibernate",
     "text" : "Hibernate (h)",
     "keybind" : "h"
 }

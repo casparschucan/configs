@@ -22,6 +22,11 @@ set $menu fuzzel
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+
+# Nathan Special
+bindsym $mod+Ctrl+Alt+n exec swaymsg 'output * bg /usr/share/backgrounds/sway/Gay_Wallpaper_Blue_1920x1080.jpeg fill'
+bindsym $mod+Ctrl+Alt+b exec swaymsg 'output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill'
+
 #
 # Example configuration:
 #

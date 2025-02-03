@@ -1,7 +1,11 @@
 # set background image
 image=~/.local/share/Screenshots/screen_blurred.jpg
 scaling=fill
+# set indicator properties
 indicator-caps-lock
 indicator-radius=100
 inside-color=00000033
 indicator-idle-visible
+
+# detach from terminal
+deamonize

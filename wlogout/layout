@@ -1,36 +1,36 @@
 {
     "label" : "lock",
     "action" : "lock_blurred",
-    "text" : "Lock",
+    "text" : "Lock (l)",
     "keybind" : "l"
 }
 {
     "label" : "logout",
     "action" : "loginctl terminate-user $USER",
-    "text" : "Logout",
+    "text" : "Logout (e)",
     "keybind" : "e"
 }
 {
     "label" : "shutdown",
     "action" : "systemctl poweroff",
-    "text" : "Shutdown",
+    "text" : "Shutdown (s)",
     "keybind" : "s"
 }
 {
     "label" : "reboot",
     "action" : "systemctl reboot",
-    "text" : "Reboot",
+    "text" : "Reboot (r)",
     "keybind" : "r"
 }
 {
     "label" : "suspend",
     "action" : "lock_blurred & systemctl suspend",
-    "text" : "Suspend",
+    "text" : "Suspend (u)",
     "keybind" : "u"
 }
 {
     "label" : "hibernate",
     "action" : "lock_blurred & systemctl hibernate",
-    "text" : "Hibernate",
+    "text" : "Hibernate (h)",
     "keybind" : "h"
 }

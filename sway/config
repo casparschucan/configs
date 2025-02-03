@@ -92,6 +92,9 @@ exec swayidle -w \
     # Lock the screen with swaylock
     bindsym $mod+Shift+b exec $lock  
 
+    # run exit menu when power button is pressed
+    bindsym XF86PowerOff exec wlogout
+
 #
 # Moving around:
 #

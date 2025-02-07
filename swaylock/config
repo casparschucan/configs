@@ -1,7 +1,7 @@
 # set background image to blurred screenshot
 #image=~/.local/share/Screenshots/screen_blurred.jpg
 # set image to fun 
-image=/usr/share/backgrounds/sway/Gay_Wallpaper_Blue_1920x1080.jpeg
+image=/usr/share/backgrounds/sway/Gay_Wallpaper_Blue_1920x1080_2.jpeg
 # set image scaling method
 scaling=fill
 # set indicator properties

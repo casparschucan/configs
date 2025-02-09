@@ -18,7 +18,7 @@ set $term foot
 # Your preferred application launcher
 set $menu fuzzel
 # Your preferred command to lock the screen. Here for constant background
-set $lock swaylock -f
+set $lock swaylock
 # for blurred background 
 # set $lock lock_blurred
 

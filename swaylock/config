@@ -11,4 +11,4 @@ inside-color=00000033
 indicator-idle-visible
 
 # detach from terminal
-deamonize
+daemonize

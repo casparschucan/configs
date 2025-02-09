@@ -223,8 +223,8 @@ bindsym $mod+r mode "resize"
 
 # set keyboard layout to us
 input * {
-  xkb_layout us,ch
-  xkb_variant ,de
+  xkb_layout ch
+  xkb_variant de
 }
 
 input "1:1:AT_Translated_Set_2_keyboard" {
@@ -237,6 +237,10 @@ bindsym $mod+Shift+s exec swaymsg input "1:1:AT_Translated_Set_2_keyboard" xkb_s
 #configure 2 monitors on hprodesk 
 output DP-1 position 0 0 
 output DP-2 position 1920 0 
+
+#configure 2 monitors on Bern setup
+output eDP-1 position 0 0
+output HDMI-A-1 position 1920 0
 
 # swaybar config for i3status
 bar {

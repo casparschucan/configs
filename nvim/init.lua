@@ -86,6 +86,11 @@ vim.cmd [[
   let maplocalleader = ","
 ]]
 
+-- Copilot configuration
+vim.cmd [[
+  let g:copilot_enabled = v:false
+]]
+
 -- Set up nvim-cmp.
 local cmp = require'cmp'
 

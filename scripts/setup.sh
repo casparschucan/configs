@@ -80,6 +80,6 @@ nvim +PlugInstall +qall
 echo "Setting up bash"
 # place .bashrc in home directory
 rm $HOME/.bashrc
-$BASH_DIR=$REPO_DIR/bash
-ln -s $BASH_DIR/* $HOME/
+BASH_DIR=$REPO_DIR/bash
+ln -s $BASH_DIR/.* $HOME/
 

@@ -45,6 +45,7 @@ yay -S --noconfirm \
     nano \
     vim \
     curl \
+    xournalpp \
 
 
 echo "configuring git"

@@ -222,14 +222,8 @@ bindsym $mod+r mode "resize"
   bindsym Print exec grim -g "$(slurp)" - | wl-copy
 
 # set keyboard layout to us
-input * {
-  xkb_layout ch
-  xkb_variant de
-}
-
 input "1:1:AT_Translated_Set_2_keyboard" {
   xkb_layout us,ch
-  xkb_variant ,de
 }
 
 bindsym $mod+Shift+s exec swaymsg input "1:1:AT_Translated_Set_2_keyboard" xkb_switch_layout next

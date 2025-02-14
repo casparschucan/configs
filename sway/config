@@ -221,12 +221,16 @@ bindsym $mod+r mode "resize"
   # Special key to take a screenshot with grim
   bindsym Print exec grim -g "$(slurp)" - | wl-copy
 
-# set keyboard layout to us
+# set keyboard layout to us for Laptop keyboard
 input "1:1:AT_Translated_Set_2_keyboard" {
   xkb_layout us,ch
 }
 
 bindsym $mod+Shift+s exec swaymsg input "1:1:AT_Translated_Set_2_keyboard" xkb_switch_layout next
+
+input "1539:242:Novatek_Ultra_Flat_Keyboard" {
+  xkb_layout ch
+}
 
 #configure 2 monitors on hprodesk 
 output DP-1 position 0 0 

@@ -46,6 +46,9 @@ yay -S --noconfirm \
     vim \
     curl \
     xournalpp \
+    obsidian \
+    typst \
+    tinymist 
 
 
 echo "configuring git"

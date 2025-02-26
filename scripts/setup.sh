@@ -48,7 +48,9 @@ yay -S --noconfirm \
     xournalpp \
     obsidian \
     typst \
-    tinymist 
+    tinymist \
+    pyright \
+    texlive-core
 
 
 echo "configuring git"

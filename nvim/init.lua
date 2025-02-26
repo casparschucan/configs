@@ -181,6 +181,21 @@ require('lspconfig')['tinymist'].setup {
   capabilities = capabilities
 }
 
+require('lspconfig')['pylsp'].setup {
+  capabilities = capabilities,
+  settings = {
+    pylsp = {
+      plugins = {
+        flake8 = {enabled = true},
+        pycodestyle = {enabled = false},
+        pyflakes = {enabled = false},
+        pylint = {enabled = false},
+        mccabe = {enabled = false},
+      },
+    },
+  }
+}
+
 -- telescope config
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })

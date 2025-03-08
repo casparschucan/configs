@@ -40,10 +40,17 @@ bindsym $mod+Ctrl+Alt+b exec swaymsg 'output * bg /usr/share/backgrounds/sway/Sw
 
 ### Idle configuration
 #
+#exec swayidle -w \
+#         timeout 300 '$lock' \
+#         timeout 360 'systemctl suspend' \
+#         before-sleep '$lock'
+
+## default idle config
 exec swayidle -w \
-          timeout 300 '$lock' \
-          timeout 360 'systemctl suspend' \
-          before-sleep '$lock'
+	timeout 300 'swaylock -f -c 000000' \
+	timeout 600 'swaymsg "output * dpms off"' \
+		resume 'swaymsg "output * dpms on"' \
+	before-sleep '$lock'
 
 # This will lock your screen after 180 seconds of inactivity, then turn off
 # your displays after another 120 seconds, and turn your screens back on when

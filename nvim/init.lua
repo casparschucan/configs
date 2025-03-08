@@ -125,7 +125,7 @@ cmp.setup({
 })
 
 vim.keymap.set('n', '<leader>rn', ':lua vim.lsp.buf.rename()<CR>')
-vim.keymap.set('n', '<leader>ca', ':lua vim.lsp.buf.code_action()<CR>')
+vim.keymap.set('n', '<leader>aa', ':lua vim.lsp.buf.code_action()<CR>')
 vim.keymap.set('n', '<leader>gd', ':lua vim.lsp.buf.definition()<CR>')
 vim.keymap.set('n', '<leader>gr', ':lua vim.lsp.buf.references()<CR>')
 vim.keymap.set('n', '<leader>gi', ':lua vim.lsp.buf.implementation()<CR>')

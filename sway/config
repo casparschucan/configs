@@ -243,9 +243,9 @@ input "1539:242:Novatek_Ultra_Flat_Keyboard" {
 output DP-1 position 0 0 
 output DP-2 position 1920 0 
 
-#configure 2 monitors on Bern setup
-output eDP-1 position 0 0
-output HDMI-A-1 position 1920 0
+#configure 2 monitors on PSI setup
+output eDP-1 position 0 1440
+output HDMI-A-1 position 0 0
 
 # swaybar config for i3status
 bar {

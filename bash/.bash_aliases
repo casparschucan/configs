@@ -14,3 +14,6 @@ alias gc='git checkout'
 alias gfo='git fetch origin'
 
 alias makefile-targets='grep "^[^#[:space:]].*:" Makefile'
+
+# alias for file launcher
+alias xo='xdg-open'

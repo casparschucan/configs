@@ -244,7 +244,7 @@ output DP-1 position 0 0
 output DP-2 position 1920 0 
 
 #configure 2 monitors on PSI setup
-output eDP-1 position 0 1440
+output eDP-1 position 320 1440
 output HDMI-A-1 position 0 0
 
 # swaybar config for i3status
@@ -254,6 +254,9 @@ bar {
   font pango:monospace 11
 
 }
+
+# execute polkit agent
+exec lxpolkit
 
 
 include /etc/sway/config.d/*

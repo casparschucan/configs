@@ -247,6 +247,8 @@ output DP-2 position 1920 0
 output eDP-1 position 320 1440
 output HDMI-A-1 position 0 0
 
+output "AOC 2470W D35FCBA000657" position 320 360
+
 # swaybar config for i3status
 bar {
   status_command i3status-rs

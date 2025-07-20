@@ -10,7 +10,6 @@ sudo pacman -S --noconfirm \
     neovim \
     base-devel \
     btop \
-    firefox \
 
 echo "Installing yay"
 # Install yay if necessary
@@ -50,7 +49,18 @@ yay -S --noconfirm \
     typst \
     tinymist \
     pyright \
-    texlive-core
+    texlive-basic \
+    texlive-latex \
+    texlive-latexrecommended \
+    texlive-latexextra \
+    texlive-fontsrecommended \
+    texlive-fontsextra \
+    texlive-mathscience \
+    texlive-bibtexextra \
+    texlive-langgerman \
+    texlive-langenglish \
+    zen-browser-bin \
+    clang
 
 
 echo "configuring git"

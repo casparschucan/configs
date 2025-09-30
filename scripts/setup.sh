@@ -60,7 +60,9 @@ yay -S --noconfirm \
     texlive-langgerman \
     texlive-langenglish \
     zen-browser-bin \
-    clang
+    clang \
+    zip \
+    unzip
 
 
 echo "configuring git"

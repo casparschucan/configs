@@ -62,7 +62,10 @@ yay -S --noconfirm \
     zen-browser-bin \
     clang \
     zip \
-    unzip
+    unzip \
+    cmake \
+    gdb \
+    texlab
 
 
 echo "configuring git"

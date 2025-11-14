@@ -56,6 +56,7 @@ Plug 'hrsh7th/nvim-cmp'
 
 --copilot
 Plug 'github/copilot.vim'
+Plug 'CopilotC-Nvim/CopilotChat.nvim'
 
 -- start screen
 Plug 'mhinz/vim-startify'
@@ -74,7 +75,7 @@ vim.cmd [[
   syntax enable
   colorscheme dracula
 ]]
-
+require("CopilotChat").setup()
 
 vim.opt.backup = false
 vim.opt.writebackup = false
@@ -169,6 +170,7 @@ cmp.setup.cmdline(':', {
 -- Set up lspconfig.
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+-- Replace thie require'lspconfig' with the modern lsp.config setup
 require('lspconfig')['clangd'].setup {
   capabilities = capabilities,
   cmd = {
@@ -200,12 +202,36 @@ require('lspconfig')['pylsp'].setup {
   }
 }
 
+require('lspconfig')['julials'].setup {
+  capabilities = capabilities,
+  cmd = {
+    "julia",
+    "--startup-file=no",
+    "--history-file=no",
+    "-e",
+    [[
+      using LanguageServer; using Pkg;
+      import StaticLint, SymbolServer;
+      env_path = dirname(Pkg.Types.Context().env.project_file);
+      server = LanguageServer.LanguageServerInstance(stdin, stdout, env_path, "");
+      server.runlinter = true;
+      run(server);
+    ]]
+  }
+}
 -- telescope config
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
+
+vim.keymap.set('n', '<leader>coc', ':CopilotChat<CR>', { desc = 'Open Copilot Chat' })
+vim.keymap.set('n', '<leader>cca', ':CopilotChatActAs<CR>', { desc = 'Copilot Chat Act As' })
+vim.keymap.set('n', '<leader>ccp', ':CopilotChatPrompt<CR>', { desc = 'Copilot Chat Prompt' })
+vim.keymap.set('n', '<leader>ccr', ':CopilotChatReset<CR>', { desc = 'Copilot Chat Reset' })
+vim.keymap.set('n', '<leader>coe', ':Copilot enable<CR>', { desc = 'Enable Copilot' })
+vim.keymap.set('n', '<leader>cod', ':Copilot disable<CR>', { desc = 'Disable Copilot' })
 
 -- typst-preview config
 require('typst-preview').setup({

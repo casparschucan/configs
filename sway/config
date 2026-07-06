@@ -18,9 +18,9 @@ set $term foot
 # Your preferred application launcher
 set $menu fuzzel
 # Your preferred command to lock the screen. Here for constant background
-set $lock swaylock
+# set $lock swaylock
 # for blurred background 
-# set $lock lock_blurred
+set $lock lock_blurred
 
 ### Output configuration
 #
@@ -40,17 +40,19 @@ bindsym $mod+Ctrl+Alt+b exec swaymsg 'output * bg /usr/share/backgrounds/sway/Sw
 
 ## Idle configuration
 #
-exec swayidle -w \
-         timeout 300 '$lock' \
-         timeout 360 'systemctl suspend' \
-         before-sleep '$lock'
+#exec swayidle -w \
+         #timeout 300 '$lock' \
+         #timeout 360 'systemctl suspend' \
+         #before-sleep '$lock'
 
 ## default idle config
-#exec swayidle -w \
-	#timeout 300 'swaylock -f -c 000000' \
-	#timeout 600 'swaymsg "output * dpms off"' \
-		#resume 'swaymsg "output * dpms on"' \
-	#before-sleep '$lock'
+exec swayidle -w \
+  timeout 300 'swaylock -f -c 000000' \
+  timeout 600 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+  before-sleep '$lock'
+
+for_window [app_id="mplayer"] inhibit_idle fullscreen
 
 # This will lock your screen after 180 seconds of inactivity, then turn off
 # your displays after another 120 seconds, and turn your screens back on when
@@ -230,7 +232,7 @@ bindsym $mod+r mode "resize"
 
 # set keyboard layout to us for Laptop keyboard
 input "1:1:AT_Translated_Set_2_keyboard" {
-  xkb_layout us,ch
+    xkb_layout ch,us
 }
 
 bindsym $mod+Shift+s exec swaymsg input "1:1:AT_Translated_Set_2_keyboard" xkb_switch_layout next

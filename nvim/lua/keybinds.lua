@@ -24,3 +24,6 @@ vim.keymap.set('n', '<leader>ccp', ':CopilotChatPrompt<CR>', { desc = 'Copilot C
 vim.keymap.set('n', '<leader>ccr', ':CopilotChatReset<CR>', { desc = 'Copilot Chat Reset' })
 vim.keymap.set('n', '<leader>coe', ':Copilot enable<CR>', { desc = 'Enable Copilot' })
 vim.keymap.set('n', '<leader>cod', ':Copilot disable<CR>', { desc = 'Disable Copilot' })
+
+vim.keymap.set('n', '<leader>vc', ':VimtexCompile<CR>', { desc = 'Vimtex Compile' })
+vim.keymap.set('n', '<leader>vv', ':VimtexView<CR>', { desc = 'Vimtex View' })

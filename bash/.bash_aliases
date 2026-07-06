@@ -17,3 +17,6 @@ alias makefile-targets='grep "^[^#[:space:]].*:" Makefile'
 
 # alias for file launcher
 alias xo='xdg-open'
+
+# alias for eth vpn
+alias ethvpn='sudo openconnect -u cschucan@student-net.ethz.ch --useragent=AnyConnect -g student-net --no-external-auth sslvpn.ethz.ch'

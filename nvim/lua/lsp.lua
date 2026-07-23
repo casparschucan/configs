@@ -1,9 +1,6 @@
 -- VimTeX configuration
-vim.cmd [[
-  let g:vimtex_view_general_viewer = 'zathura'
-  let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
-  let maplocalleader = ","
-]]
+vim.g.vimtex_view_method = 'zathura'   -- native zathura method (D-Bus based)
+vim.g.maplocalleader = ','
 
 -- Copilot configuration
 vim.cmd [[
@@ -73,48 +70,46 @@ cmp.setup.cmdline(':', {
   matching = { disallow_symbol_nonprefix_matching = false }
 })
 
--- Set up lspconfig.
+-- Set up LSP (modern vim.lsp API, Neovim 0.11+)
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
--- Replace thie require'lspconfig' with the modern lsp.config setup
-require('lspconfig')['clangd'].setup {
+
+-- Apply nvim-cmp capabilities to every server via the '*' (global) config
+vim.lsp.config('*', {
   capabilities = capabilities,
+})
+
+-- clangd: override the launch command
+vim.lsp.config('clangd', {
   cmd = {
-    "clangd",
-    "--offset-encoding=utf-16",
-  }
-}
+    'clangd',
+    '--offset-encoding=utf-16',
+  },
+})
 
-require('lspconfig')['texlab'].setup {
-  capabilities = capabilities
-}
+-- texlab and tinymist need no extra settings; the global capabilities apply.
 
-require('lspconfig')['tinymist'].setup {
-  capabilities = capabilities
-}
-
-require('lspconfig')['pylsp'].setup {
-  capabilities = capabilities,
+-- pylsp: configure linter plugins
+vim.lsp.config('pylsp', {
   settings = {
     pylsp = {
       plugins = {
-        flake8 = {enabled = true},
-        pycodestyle = {enabled = false},
-        pyflakes = {enabled = false},
-        pylint = {enabled = false},
-        mccabe = {enabled = false},
+        flake8 = { enabled = true },
+        pycodestyle = { enabled = false },
+        pyflakes = { enabled = false },
+        pylint = { enabled = false },
+        mccabe = { enabled = false },
       },
     },
-  }
-}
+  },
+})
 
-require('lspconfig')['julials'].setup {
-  capabilities = capabilities,
+-- julials: override the launch command
+vim.lsp.config('julials', {
   cmd = {
-    "julia",
-    "--startup-file=no",
-    "--history-file=no",
-    "-e",
+    'julia',
+    '--startup-file=no',
+    '--history-file=no',
+    '-e',
     [[
       using LanguageServer; using Pkg;
       import StaticLint, SymbolServer;
@@ -122,12 +117,14 @@ require('lspconfig')['julials'].setup {
       server = LanguageServer.LanguageServerInstance(stdin, stdout, env_path, "");
       server.runlinter = true;
       run(server);
-    ]]
-  }
-}
+    ]],
+  },
+})
 
--- typst-preview config
-require('typst-preview').setup({
+-- Finally, enable all the servers
+vim.lsp.enable({ 'clangd', 'texlab', 'tinymist', 'pylsp', 'julials' })
+
+vim.lsp.config('typst-preview', {
   -- Setting this true will enable logging debug information to
   -- `vim.fn.stdpath 'data' .. '/typst-preview/log.txt'`
   debug = false,

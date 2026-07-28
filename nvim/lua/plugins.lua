@@ -47,4 +47,7 @@ Plug 'nvim-treesitter/nvim-treesitter'
 -- typst
 Plug 'chomosuke/typst-preview.nvim'
 
+-- git gutter signs, hunk staging/navigation, blame
+Plug 'lewis6991/gitsigns.nvim'
+
 vim.call('plug#end')

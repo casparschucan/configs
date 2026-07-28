@@ -14,3 +14,4 @@ export MANPAGER='nvim +Man!'
 source ~/.bash_prompt
 source ~/.bash_aliases
 
+export PATH="$HOME/.local/bin:$PATH"

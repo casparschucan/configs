@@ -1,0 +1,53 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this repo is
+
+Personal dotfiles for an Arch Linux + Sway (Wayland) desktop setup. There is no
+build, lint, or test suite — this is configuration only. "Testing" a change
+means applying the config (e.g. `swaymsg reload`, restarting the affected
+program, or sourcing `.bashrc`) and checking it behaves as expected.
+
+## Layout
+
+Each top-level directory mirrors a directory that gets symlinked into
+`~/.config/` (see `scripts/setup.sh`), with the one exception being `bash/`,
+whose dotfiles are symlinked directly into `$HOME` instead of `~/.config/`.
+
+- `sway/config` — window manager config (Mod4/Super as `$mod`, vim-style
+  `hjkl` navigation, `foot` terminal, `fuzzel` launcher, `lock_blurred` for
+  locking). Contains machine-specific `output` position lines for at least
+  three known setups (laptop, HP ProDesk dual monitor, PSI setup) — when
+  editing outputs, keep all of these variants rather than replacing them.
+- `swaylock`, `wlogout`, `foot`, `fuzzel`, `i3status-rust`, `gtk-3.0`,
+  `zathura` — companion app configs used from within the Sway session.
+- `nvim/` — Neovim config using `vim-plug` (not lazy.nvim/packer). Entry point
+  `init.lua` requires, in order: `plugins`, `options`, `lsp`, `keybinds`
+  from `nvim/lua/`. LSP servers are configured with the native Neovim 0.11+
+  `vim.lsp.config` / `vim.lsp.enable` API (not `nvim-lspconfig`'s setup
+  functions), with per-server overrides for `clangd` (forces
+  `--offset-encoding=utf-16`), `pylsp` (disables most linter plugins, keeps
+  flake8), and `julials` (custom launch command invoking `LanguageServer.jl`
+  directly). Completion is `nvim-cmp` + `vsnip` (not `luasnip`).
+- `bash/` — `.bashrc` sources `.bash_prompt` and `.bash_aliases`; these three
+  files get symlinked straight into `$HOME`, not `~/.config/`.
+- `scripts/setup.sh` — idempotent-ish provisioning script for a fresh Arch
+  install: installs pacman/yay packages, sets git identity, symlinks every
+  config directory into `~/.config`, symlinks `scripts/bin/*` into
+  `/usr/local/bin`, installs vim-plug + runs `:PlugInstall`, and replaces
+  `~/.bashrc` with the symlinked version. It is destructive (removes the
+  existing `~/.bashrc`, assumes a clean `~/.config`) — treat edits to it
+  carefully since it's meant to be run once on a new machine, not repeatedly.
+- `scripts/bin/lock_blurred` — screenshots the current screen, blurs it with
+  ImageMagick, then calls `swaylock`; this is the `$lock` command referenced
+  from `sway/config`.
+
+## Conventions to preserve when editing
+
+- Sway keybindings follow vim-style directions (`h`/`j`/`k`/`l`) mirrored by
+  arrow keys for the same action — add both when introducing new directional
+  binds.
+- Neovim plugin management is `vim-plug` (`Plug(...)` calls in
+  `nvim/lua/plugins.lua` + `vim.call('plug#begin'/'plug#end')`), not a
+  Lua-native plugin manager — don't introduce a second plugin manager.

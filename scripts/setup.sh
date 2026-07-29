@@ -23,7 +23,17 @@ then
 fi
 
 echo "Installing necessary packages for the setup"
-# Install packages
+# Install packages.
+#
+# This assumes archinstall's Sway desktop profile has already run, so sway
+# itself plus swaybg/swayidle/swaylock/grim/slurp/brightnessctl/waybar/
+# xorg-xwayland/pavucontrol/foot are deliberately not listed here. What
+# archinstall does *not* give you, but this config depends on, is: lxpolkit
+# (referenced by `exec lxpolkit` in sway/config), mako + libnotify (nothing
+# else starts a notification daemon), and the Bluetooth audio stack below.
+#
+# PulseAudio itself is chosen during archinstall's audio prompt — pick
+# PulseAudio, not PipeWire, since pulse/default.pa is a PulseAudio config.
 yay -S --noconfirm \
     tealdeer \
     bluetuith \
@@ -35,6 +45,13 @@ yay -S --noconfirm \
     pcmanfm-gtk3 \
     wl-clipboard \
     xdg-desktop-portal-wlr \
+    usbutils \
+    mako \
+    libnotify \
+    lxpolkit \
+    bluez \
+    bluez-utils \
+    pulseaudio-bluetooth \
     zathura \
     zathura-pdf-mupdf \
     bash-completion \
@@ -86,6 +103,14 @@ REPO_DIR=$(pwd)
 echo "Setting up dotfiles"
 # Create symlinks to config directories
 ln -s $REPO_DIR/* $HOME/.config/
+
+# ~/.config/pulse also holds PulseAudio runtime state (cookie, *.tdb databases),
+# so it can't be a directory symlink like the others — that would make
+# PulseAudio write those files back into this repo. Replace the symlink the
+# glob above created with a real directory holding a single-file symlink.
+rm -f $HOME/.config/pulse
+mkdir -p $HOME/.config/pulse
+ln -s $REPO_DIR/pulse/default.pa $HOME/.config/pulse/default.pa
 
 echo "Setting up scripts"
 # install command scripts

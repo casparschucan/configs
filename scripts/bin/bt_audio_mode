@@ -1,0 +1,72 @@
+#!/bin/bash
+#
+# Switch the connected Bluetooth headset between its two mutually exclusive
+# profiles, and point PulseAudio's defaults (plus any already-running streams)
+# at the result.
+#
+#   call   handsfree_head_unit — 16 kHz mono, HAS a microphone
+#   music  a2dp_sink           — 44.1 kHz stereo, NO microphone
+#   toggle flip between the two (default)
+#
+# A headset cannot do both at once; that is a Bluetooth limitation, not a
+# PulseAudio one. Automatic switching (module-bluetooth-policy auto_switch=2)
+# is disabled in pulse/default.pa because it thrashes during browser video
+# calls — see the comment there. So switch explicitly with this before joining
+# a call, and back afterwards to get stereo music quality again.
+
+set -u
+
+MODE="${1:-toggle}"
+
+CARD=$(pactl list cards short | awk '/bluez_card/ {print $2; exit}')
+if [ -z "$CARD" ]; then
+    echo "bt_audio_mode: no Bluetooth audio card connected" >&2
+    exit 1
+fi
+
+CURRENT=$(pactl list cards | sed -n "/Name: $CARD\$/,/Active Profile/p" | awk '/Active Profile/ {print $3}')
+
+case "$MODE" in
+    call)   PROFILE=handsfree_head_unit ;;
+    music)  PROFILE=a2dp_sink ;;
+    toggle)
+        if [ "$CURRENT" = handsfree_head_unit ]; then
+            PROFILE=a2dp_sink
+        else
+            PROFILE=handsfree_head_unit
+        fi
+        ;;
+    *)
+        echo "usage: bt_audio_mode [call|music|toggle]" >&2
+        exit 1
+        ;;
+esac
+
+pactl set-card-profile "$CARD" "$PROFILE" || exit 1
+
+# The profile change destroys the old sink/source and creates new ones, so the
+# defaults have to be re-pointed and existing streams moved across by hand —
+# otherwise apps keep playing into the sink that just went away.
+SINK=$(pactl list sinks short | awk '/bluez_/ {print $2; exit}')
+[ -n "$SINK" ] && pactl set-default-sink "$SINK"
+
+if [ "$PROFILE" = handsfree_head_unit ]; then
+    SOURCE=$(pactl list sources short | awk '/bluez_source/ {print $2; exit}')
+else
+    # A2DP exposes no mic, so fall back to the built-in one rather than
+    # leaving the default pointing at a source that no longer exists.
+    SOURCE=$(pactl list sources short | awk '/alsa_input/ {print $2; exit}')
+fi
+[ -n "$SOURCE" ] && pactl set-default-source "$SOURCE"
+
+[ -n "$SINK" ] && pactl list sink-inputs short | while read -r id _; do
+    pactl move-sink-input "$id" "$SINK" 2>/dev/null
+done
+[ -n "$SOURCE" ] && pactl list source-outputs short | while read -r id _; do
+    pactl move-source-output "$id" "$SOURCE" 2>/dev/null
+done
+
+case "$PROFILE" in
+    handsfree_head_unit) echo "headset: call mode (mono, mic on)" ;;
+    a2dp_sink)           echo "headset: music mode (stereo, mic off)" ;;
+esac

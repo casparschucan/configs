@@ -1,0 +1,30 @@
+#!/usr/bin/pulseaudio -nF
+#
+# User overrides on top of the system config. Loaded instead of
+# /etc/pulse/default.pa, so include that first.
+
+.include /etc/pulse/default.pa
+
+### Bluetooth headset mic
+#
+# module-bluetooth-policy's auto_switch is deliberately OFF here.
+#
+# auto_switch=1 (the default) only switches a headset from A2DP to HFP for
+# streams tagged with the "phone" role, which browsers don't set — so the
+# headset mic never appears and calls fall back to the internal laptop mic.
+#
+# auto_switch=2 switches on *any* recording stream, which fixes that but
+# causes a feedback loop in browser video calls: each switch tears down the
+# card's sink and source and builds new ones, the browser sees its capture
+# device disappear and re-enumerates, re-enumeration opens another probe
+# stream, and that triggers another switch. Measured 6 profile changes from 3
+# short recordings. In Zoom this presents as audio flapping between the
+# headset and the laptop speakers for the whole call.
+#
+# auto_switch=0 makes the profile change only when something explicitly asks.
+# Use the `bt_audio_mode` script to pick a profile before joining a call; it
+# then stays put for the call's duration.
+.nofail
+unload-module module-bluetooth-policy
+.fail
+load-module module-bluetooth-policy auto_switch=0

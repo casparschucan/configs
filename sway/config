@@ -224,6 +224,12 @@ bindsym $mod+r mode "resize"
   bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
   bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
   bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+  # Toggle the Bluetooth headset between stereo playback (A2DP, no mic) and
+  # call mode (HFP, has a mic). A headset can only do one at a time, and
+  # automatic switching is off in pulse/default.pa because it thrashes during
+  # video calls, so this is the manual switch. The notification reports which
+  # mode you landed in; if notify-send is missing the profile still changes.
+  bindsym $mod+Shift+a exec notify-send "Bluetooth audio" "$(bt_audio_mode)"
   # Special keys to adjust brightness via brightnessctl
   bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
   bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
@@ -261,6 +267,10 @@ bar {
 
 # execute polkit agent
 exec lxpolkit
+
+# notification daemon — nothing else starts one, so without this every
+# notify-send in this config (and from any app) is silently dropped
+exec mako
 
 
 include /etc/sway/config.d/*

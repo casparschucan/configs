@@ -22,6 +22,15 @@ whose dotfiles are symlinked directly into `$HOME` instead of `~/.config/`.
   editing outputs, keep all of these variants rather than replacing them.
 - `swaylock`, `wlogout`, `foot`, `fuzzel`, `i3status-rust`, `gtk-3.0`,
   `zathura` — companion app configs used from within the Sway session.
+- `pulse/default.pa` — PulseAudio (not PipeWire) user config. Includes
+  `/etc/pulse/default.pa` first, then reloads `module-bluetooth-policy` with
+  `auto_switch=0`. Automatic A2DP↔HFP switching is deliberately off: every
+  switch destroys and recreates the card's sink and source, which makes a
+  browser in a video call re-enumerate devices, which opens another probe
+  stream, which triggers another switch — audio flaps between headset and
+  laptop for the whole call. Pick a profile explicitly with `bt_audio_mode`
+  instead. Unlike the other directories this is symlinked as a *single file*,
+  not a directory, because `~/.config/pulse` also holds runtime state.
 - `xdg-desktop-portal-wlr/config` — screencast backend used for screen sharing
   in the browser. Sets `chooser_type=dmenu` with `fuzzel --dmenu` because the
   default chooser is `slurp`, which waits for a mouse click/drag on the output
@@ -40,11 +49,17 @@ whose dotfiles are symlinked directly into `$HOME` instead of `~/.config/`.
   files get symlinked straight into `$HOME`, not `~/.config/`.
 - `scripts/setup.sh` — idempotent-ish provisioning script for a fresh Arch
   install: installs pacman/yay packages, sets git identity, symlinks every
-  config directory into `~/.config`, symlinks `scripts/bin/*` into
+  config directory into `~/.config` (then fixes up `pulse/` as described
+  above), symlinks `scripts/bin/*` into
   `/usr/local/bin`, installs vim-plug + runs `:PlugInstall`, and replaces
   `~/.bashrc` with the symlinked version. It is destructive (removes the
   existing `~/.bashrc`, assumes a clean `~/.config`) — treat edits to it
   carefully since it's meant to be run once on a new machine, not repeatedly.
+- `scripts/bin/bt_audio_mode` — switches the connected Bluetooth headset
+  between `handsfree_head_unit` (mono, has a mic — for calls) and `a2dp_sink`
+  (stereo, no mic — for music), then re-points PulseAudio's default sink and
+  source and moves any live streams over. Needed because automatic switching is
+  disabled in `pulse/default.pa`; a headset can only do one profile at a time.
 - `scripts/bin/lock_blurred` — screenshots the current screen, blurs it with
   ImageMagick, then calls `swaylock`; this is the `$lock` command referenced
   from `sway/config`.

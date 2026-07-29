@@ -22,6 +22,12 @@ whose dotfiles are symlinked directly into `$HOME` instead of `~/.config/`.
   editing outputs, keep all of these variants rather than replacing them.
 - `swaylock`, `wlogout`, `foot`, `fuzzel`, `i3status-rust`, `gtk-3.0`,
   `zathura` — companion app configs used from within the Sway session.
+- `xdg-desktop-portal-wlr/config` — screencast backend used for screen sharing
+  in the browser. Sets `chooser_type=dmenu` with `fuzzel --dmenu` because the
+  default chooser is `slurp`, which waits for a mouse click/drag on the output
+  and so looks like the share silently failing. Requires the
+  `xdg-desktop-portal-wlr` package; sway ships the `portals.conf` that routes
+  `ScreenCast` to it, so no further portal config is needed.
 - `nvim/` — Neovim config using `vim-plug` (not lazy.nvim/packer). Entry point
   `init.lua` requires, in order: `plugins`, `options`, `lsp`, `keybinds`
   from `nvim/lua/`. LSP servers are configured with the native Neovim 0.11+

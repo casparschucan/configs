@@ -1,0 +1,13 @@
+[screencast]
+# Without an explicit chooser, xdpw falls back to `slurp`, which expects a
+# mouse click/drag on the output you want to share. That looks like nothing
+# happening: the browser's share dialog closes, slurp waits for a click that
+# never comes, and the cast silently never starts.
+#
+# Use fuzzel in dmenu mode instead — xdpw pipes the output names in on stdin
+# and reads the chosen one back from stdout, so outputs are picked from a list
+# with Enter, matching how fuzzel is used everywhere else in this config.
+chooser_type=dmenu
+chooser_cmd=fuzzel --dmenu --lines 5 --prompt "share output: "
+
+max_fps=30

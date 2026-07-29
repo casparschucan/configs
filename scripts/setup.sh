@@ -34,6 +34,7 @@ yay -S --noconfirm \
     openconnect \
     pcmanfm-gtk3 \
     wl-clipboard \
+    xdg-desktop-portal-wlr \
     zathura \
     zathura-pdf-mupdf \
     bash-completion \

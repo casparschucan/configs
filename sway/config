@@ -247,6 +247,13 @@ input "1539:242:Novatek_Ultra_Flat_Keyboard" {
   xkb_layout ch
 }
 
+# Swap Esc and CapsLock globally (XKB-level, applies to every keyboard and
+# every app, not just neovim — this can't be done reliably at the app level
+# since terminal apps like neovim only see whatever keycode already arrived).
+input "type:keyboard" {
+  xkb_options caps:swapescape
+}
+
 #configure 2 monitors on hprodesk 
 output DP-1 position 0 0 
 output DP-2 position 1920 0 

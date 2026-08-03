@@ -52,7 +52,10 @@ exec swayidle -w \
     resume 'swaymsg "output * dpms on"' \
   before-sleep '$lock'
 
-for_window [app_id="mplayer"] inhibit_idle fullscreen
+# mplayer is X11-only and runs under Xwayland, so it has no app_id — Xwayland
+# windows are matched on WM_CLASS instead. Use class, not instance: mplayer
+# derives the instance from the video output driver (xv, gl, ...), so it varies.
+for_window [class="MPlayer"] inhibit_idle fullscreen
 
 # This will lock your screen after 180 seconds of inactivity, then turn off
 # your displays after another 120 seconds, and turn your screens back on when

@@ -86,6 +86,11 @@ yay -S --noconfirm \
     texlab
 
 
+echo "Enabling Bluetooth"
+# bluez ships bluetooth.service disabled, so the headset and the i3status
+# bluetooth blocks have no daemon to talk to until it's enabled.
+sudo systemctl enable --now bluetooth
+
 echo "configuring git"
 # git config
 git config --global user.email "caspar.schucan@gmail.com"
@@ -101,7 +106,10 @@ cd ..
 REPO_DIR=$(pwd)
 
 echo "Setting up dotfiles"
-# Create symlinks to config directories
+# Create symlinks to config directories. ~/.config doesn't exist yet on a
+# fresh install until something writes to it, and without it ln aborts with
+# "target is not a directory" and links nothing.
+mkdir -p $HOME/.config
 ln -s $REPO_DIR/* $HOME/.config/
 
 # ~/.config/pulse also holds PulseAudio runtime state (cookie, *.tdb databases),

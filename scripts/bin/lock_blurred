@@ -1,6 +1,17 @@
 #!/bin/bash
 
 # Lock the screen with a blurred version of the current screen
-grim ~/.local/share/Screenshots/screen.jpg && \
-magick ~/.local/share/Screenshots/screen.jpg -blur 0x8 ~/.local/share/Screenshots/screen_blurred.jpg && \
+#
+# swaylock/config reads the blurred image from this directory. Nothing else
+# creates it, and grim fails outright when it's missing — so on a fresh
+# install this script used to exit before swaylock and never lock at all,
+# including from swayidle's before-sleep hook.
+SHOT_DIR=~/.local/share/Screenshots
+mkdir -p "$SHOT_DIR"
+
+grim "$SHOT_DIR/screen.jpg" && \
+magick "$SHOT_DIR/screen.jpg" -blur 0x8 "$SHOT_DIR/screen_blurred.jpg"
+
+# Lock even if the screenshot or blur failed: an unblurred or stale background
+# is fine, an unlocked screen is not.
 swaylock

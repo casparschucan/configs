@@ -48,7 +48,8 @@ whose dotfiles are symlinked directly into `$HOME` instead of `~/.config/`.
 - `bash/` — `.bashrc` sources `.bash_prompt` and `.bash_aliases`; these three
   files get symlinked straight into `$HOME`, not `~/.config/`.
 - `scripts/setup.sh` — idempotent-ish provisioning script for a fresh Arch
-  install: installs pacman/yay packages, sets git identity, symlinks every
+  install: installs pacman/yay packages, enables `bluetooth.service`, sets
+  git identity, symlinks every
   config directory into `~/.config` (then fixes up `pulse/` as described
   above), symlinks `scripts/bin/*` into
   `/usr/local/bin`, installs vim-plug + runs `:PlugInstall`, and replaces

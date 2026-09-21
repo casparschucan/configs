@@ -42,6 +42,7 @@ yay -S --noconfirm \
     neofetch \
     nodejs \
     openconnect \
+    openfortivpn \
     pcmanfm-gtk3 \
     wl-clipboard \
     xdg-desktop-portal-wlr \

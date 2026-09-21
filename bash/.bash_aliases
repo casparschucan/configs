@@ -20,3 +20,7 @@ alias xo='xdg-open'
 
 # alias for eth vpn
 alias ethvpn='sudo openconnect -u cschucan@student-net.ethz.ch --useragent=AnyConnect -g student-net --no-external-auth sslvpn.ethz.ch'
+
+# alias for unibe vpn (FortiGate SSL VPN with Microsoft SSO). openfortivpn
+# listens on :8020 for the SAML redirect but doesn't open the browser itself.
+alias unibevpn='(xdg-open "https://univpn.unibe.ch/remote/saml/start?redirect=1" &>/dev/null &); sudo openfortivpn univpn.unibe.ch --saml-login'

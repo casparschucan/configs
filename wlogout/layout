@@ -1,6 +1,6 @@
 {
     "label" : "lock",
-    "action" : "swaylock",
+    "action" : "lock_blurred",
     "text" : "Lock (l)",
     "keybind" : "l"
 }

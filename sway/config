@@ -241,7 +241,7 @@ bindsym $mod+r mode "resize"
 
 # set keyboard layout to us for Laptop keyboard
 input "1:1:AT_Translated_Set_2_keyboard" {
-    xkb_layout ch,us
+    xkb_layout us,ch
 }
 
 bindsym $mod+Shift+s exec swaymsg input "1:1:AT_Translated_Set_2_keyboard" xkb_switch_layout next

@@ -38,13 +38,17 @@ whose dotfiles are symlinked directly into `$HOME` instead of `~/.config/`.
   `xdg-desktop-portal-wlr` package; sway ships the `portals.conf` that routes
   `ScreenCast` to it, so no further portal config is needed.
 - `nvim/` — Neovim config using `vim-plug` (not lazy.nvim/packer). Entry point
-  `init.lua` requires, in order: `plugins`, `options`, `lsp`, `keybinds`
-  from `nvim/lua/`. LSP servers are configured with the native Neovim 0.11+
-  `vim.lsp.config` / `vim.lsp.enable` API (not `nvim-lspconfig`'s setup
-  functions), with per-server overrides for `clangd` (forces
-  `--offset-encoding=utf-16`), `pylsp` (disables most linter plugins, keeps
-  flake8), and `julials` (custom launch command invoking `LanguageServer.jl`
-  directly). Completion is `nvim-cmp` + `vsnip` (not `luasnip`).
+  `init.lua` requires, in order: `plugins`, `options`, `lsp`, `git_signs`,
+  `markdown`, `keybinds` from `nvim/lua/`. LSP servers are configured with the
+  native Neovim 0.11+ `vim.lsp.config` / `vim.lsp.enable` API (not
+  `nvim-lspconfig`'s setup functions), with per-server overrides for `clangd`
+  (forces `--offset-encoding=utf-16`), `pylsp` (disables most linter plugins,
+  keeps flake8), and `julials` (custom launch command invoking
+  `LanguageServer.jl` directly). Completion is `nvim-cmp` + `vsnip` (not
+  `luasnip`). `markdown.lua` sets up `nvim-treesitter` (ensuring the
+  `markdown`/`markdown_inline` parsers, since nothing else in this config
+  configures treesitter despite the plugin being installed) and
+  `render-markdown.nvim`; toggle rendering with `<leader>mr`.
 - `bash/` — `.bashrc` sources `.bash_prompt` and `.bash_aliases`; these three
   files get symlinked straight into `$HOME`, not `~/.config/`.
 - `scripts/setup.sh` — idempotent-ish provisioning script for a fresh Arch

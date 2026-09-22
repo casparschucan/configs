@@ -10,6 +10,7 @@ sudo pacman -S --noconfirm \
     neovim \
     base-devel \
     btop \
+    tree-sitter-cli \
 
 echo "Installing yay"
 # Install yay if necessary

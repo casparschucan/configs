@@ -50,4 +50,8 @@ Plug 'chomosuke/typst-preview.nvim'
 -- git gutter signs, hunk staging/navigation, blame
 Plug 'lewis6991/gitsigns.nvim'
 
+-- markdown rendering (needs treesitter markdown/markdown_inline parsers)
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'MeanderingProgrammer/render-markdown.nvim'
+
 vim.call('plug#end')

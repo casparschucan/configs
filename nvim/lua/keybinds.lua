@@ -27,3 +27,5 @@ vim.keymap.set('n', '<leader>cod', ':Copilot disable<CR>', { desc = 'Disable Cop
 
 vim.keymap.set('n', '<leader>vc', ':VimtexCompile<CR>', { desc = 'Vimtex Compile' })
 vim.keymap.set('n', '<leader>vv', ':VimtexView<CR>', { desc = 'Vimtex View' })
+
+vim.keymap.set('n', '<leader>mr', ':RenderMarkdown toggle<CR>', { desc = 'Toggle Markdown Render' })

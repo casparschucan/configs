@@ -84,13 +84,22 @@ yay -S --noconfirm \
     unzip \
     cmake \
     gdb \
-    texlab
+    texlab \
+    docker \
+    docker-compose
 
 
 echo "Enabling Bluetooth"
 # bluez ships bluetooth.service disabled, so the headset and the i3status
 # bluetooth blocks have no daemon to talk to until it's enabled.
 sudo systemctl enable --now bluetooth
+
+echo "Setting up docker"
+# Enable the daemon and add the user to the docker group so docker can be used
+# without sudo. Group membership only applies to new login sessions, so docker
+# will still need sudo until the next log in.
+sudo systemctl enable --now docker
+sudo usermod -aG docker "$USER"
 
 echo "configuring git"
 # git config
